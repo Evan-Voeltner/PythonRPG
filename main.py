@@ -7,26 +7,23 @@ hercules_stats = {
     'attack names' : ['Slash', 'Stab', 'Shove', 'Kick', 'Punch']
 }
 
-goblin_stats = {
+attackers = [
+    {
     'name' : 'Goblin',
     'health' : 25,
     'attack power' : 7,
-    'attack names' : ['Slash', 'Stab', 'Shove', 'Kick', 'Punch']
-}
-
-brute_stats = {
+    'attack names' : ['Slash', 'Stab', 'Shove', 'Kick', 'Punch']},
+    {
     'name' : 'Brute',
     'health' : 120,
     'attack power' : 15,
-    'attack names' : ['Slash', 'Stab', 'Shove', 'Kick', 'Punch']
-}
-
-gnome_stats = {
+    'attack names' : ['Slash', 'Stab', 'Shove', 'Kick', 'Punch']},
+    {
     'name' : 'Gnome',
     'health' : 25,
     'attack power' : 130,
-    'attack names' : ['Slash', 'Stab', 'Shove', 'Kick', 'Punch']
-}
+    'attack names' : ['Slash', 'Stab', 'Shove', 'Kick', 'Punch']}
+    ]
 
 def Get_Random(given_list):
     chosen_item = random.sample(given_list, k=1)
@@ -67,5 +64,12 @@ def Attack(given_player, given_attacker):
     else:
         return False
 
+def RunGame(given_player, given_attackers):
+    player_is_alive = True
 
-Attack(hercules_stats, brute_stats)
+    while player_is_alive:
+        current_attacker = Get_Random(given_attackers)
+        Attack(given_player, current_attacker)
+
+
+RunGame(hercules_stats, attackers)
