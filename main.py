@@ -29,10 +29,24 @@ def Get_Random(given_list):
     chosen_item = random.sample(given_list, k=1)
     return(chosen_item.pop())
 
+def VerifyChoice(given_choice, given_choices_list):
+    response_is_valid = False
+    current_response = given_choice
+    while response_is_valid != True:
+        for option in given_choices_list:
+            if option == current_response.capitalize():
+                response_is_valid = True
+        
+        if response_is_valid != True:
+            current_response = input('Please type a valid response: ')
+
+    return(current_response)        
+
 def Attack(given_player, current_given_player_health, given_attacker):
     player_name = given_player.get('name')
     player_health = current_given_player_health
     player_power = given_player.get('attack power')
+    player_attack_names = given_player.get('attack names')
     player_attack = ''
     attacker_name = given_attacker.get('name')
     attacker_health = given_attacker.get('health')
@@ -46,13 +60,14 @@ def Attack(given_player, current_given_player_health, given_attacker):
     print(f'A {attacker_name} has appeard!')
 
     while player_health >= 0 and attacker_health >= 0:
-        for name in given_player.get('attack names'):
+        for name in player_attack_names:
             print(name)
-        player_attack = input('Pick an attack!: ')
+        player_attack = VerifyChoice(input('Pick an attack!: '), player_attack_names) 
 
         attacker_health -= player_power
         print(f'{player_name} attacks {attacker_name} with {player_attack}!')
         print(f'{attacker_name} has {str(attacker_health)} health left!')
+        
         if attacker_health <= 0:
             winner_stats.update({'name' : player_name})
             winner_stats.update({'health' : player_health})
@@ -62,6 +77,7 @@ def Attack(given_player, current_given_player_health, given_attacker):
         player_health -= attacker_power
         print(f'{attacker_name} attacks {player_name} with {attacker_attack}!')
         print(f'{player_name} has {str(player_health)} health left!')
+        
         if player_health <= 0:
             winner_stats.update({'name' : attacker_name})
             winner_stats.update({'health' : attacker_health})
