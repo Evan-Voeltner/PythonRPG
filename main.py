@@ -78,17 +78,15 @@ def RecipientResponse(starting_health, damage_delt, health_left, type_of_attack)
         'large' : ['I still seem to be holding on.', 'like an unrattled leaf, I remain present.', 'yet the sun still shines another day']
     }
 
-
-    
     amount_of_damage = HowMuchDamage(starting_health, damage_delt)
     amount_of_health = HowMuchHealth(starting_health, health_left)
 
     first_segment = Get_Random(amount_of_damage_delt_responses.get(amount_of_damage))
-    middle_segment = Get_Random(type_of_attack_responses.get(type_of_attack))
+    middle_segment = Get_Random(type_of_attack_responses.get(type_of_attack.lower()))
     last_segment = Get_Random(amount_of_health_left_responses.get(amount_of_health))
     
     and_or_but = ''
-    
+
     if amount_of_damage == 'small' and amount_of_health == 'small':
         and_or_but = 'but '
     if amount_of_damage == 'medium' or amount_of_damage == 'large' and amount_of_health == 'large':
@@ -101,11 +99,13 @@ def RecipientResponse(starting_health, damage_delt, health_left, type_of_attack)
 def Attack(given_player, current_given_player_health, given_attacker):
     player_name = given_player.get('name')
     player_health = current_given_player_health
+    player_starting_health = current_given_player_health
     player_power = given_player.get('attack power')
     player_attack_names = given_player.get('attack names')
     player_attack = ''
     attacker_name = given_attacker.get('name')
     attacker_health = given_attacker.get('health')
+    attacker_starting_health = given_attacker.get('health')
     attacker_power = given_attacker.get('attack power')
     attacker_attack = ''
     winner_stats = {
@@ -121,7 +121,9 @@ def Attack(given_player, current_given_player_health, given_attacker):
         player_attack = VerifyChoice(input('Pick an attack!: '), player_attack_names) 
 
         attacker_health -= player_power
+
         print(f'{player_name} attacks {attacker_name} with {player_attack}!')
+        RecipientResponse(attacker_starting_health, player_power, attacker_health, player_attack)
         print(f'{attacker_name} has {str(attacker_health)} health left!')
         
         if attacker_health <= 0:
@@ -131,7 +133,9 @@ def Attack(given_player, current_given_player_health, given_attacker):
 
         attacker_attack = Get_Random(given_attacker.get('attack names'))
         player_health -= attacker_power
+
         print(f'{attacker_name} attacks {player_name} with {attacker_attack}!')
+        RecipientResponse(player_starting_health, attacker_power, player_health, attacker_attack)
         print(f'{player_name} has {str(player_health)} health left!')
         
         if player_health <= 0:
