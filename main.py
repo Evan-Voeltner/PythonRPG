@@ -41,21 +41,31 @@ def Attack(given_player, given_attacker):
     attacker_health = given_attacker.get('health')
     attacker_power = given_attacker.get('attack power')
     attacker_attack = ''
+    player_won = False
 
     print(f'A {attacker_name} has appeard!')
 
-    while player_health > 0 and attacker_health > 0:
+    while player_health >= 0 and attacker_health >= 0:
         for name in given_player.get('attack names'):
             print(name)
-        player_attack = input('Pick an attack!')
+        player_attack = input('Pick an attack!: ')
 
-        attacker_health = attacker_health =- player_power
+        attacker_health -= player_power
         print(f'{player_name} attacks {attacker_name} with {player_attack}!')
         print(f'{attacker_name} has {str(attacker_health)}')
+        if attacker_health <= 0:
+            player_won = True
+            break    
 
         attacker_attack = Get_Random(given_attacker.get('attack names'))
+        player_health -= attacker_power
         print(f'{attacker_name} attacks {player_name} with {attacker_attack}!')
         print(f'{player_name} has {str(player_health)}')
 
+    if player_won:
+        return True
+    else:
+        return False
 
-Attack(hercules_stats, goblin_stats)
+
+Attack(hercules_stats, brute_stats)
