@@ -22,3 +22,6 @@ gnome_stats = {
     'attack names' : ['Slash', 'Stab', 'Shove', 'Kick', 'Punch']
 }
 
+def Attack(player, attacker):
+    player_health = player.get('health')
+    attacker_health = attacker.get('health')
