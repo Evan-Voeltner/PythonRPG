@@ -75,7 +75,7 @@ def RecipientResponse(starting_health, damage_delt, health_left, type_of_attack)
     }
     amount_of_health_left_responses = {
         'small' : ['I am holding on by a mere thread.','it appears that my days are numbered.','my presence as a matter of conceren, is to be no more.'],
-        'large' : ['I still seem to be holding on.', 'like an unrattled leaf, I remain present.', 'yet the sun still shines another day']
+        'large' : ['I still seem to be holding on.', 'like an unrattled leaf, I remain present.', 'yet the sun still shines another day.']
     }
 
     amount_of_damage = HowMuchDamage(starting_health, damage_delt)
@@ -122,7 +122,7 @@ def Attack(given_player, current_given_player_health, given_attacker):
 
         attacker_health -= player_power
 
-        print(f'{player_name} attacks {attacker_name} with {player_attack}!')
+        print(f'{player_name} attacks {attacker_name} with {player_attack.capitalize()}!')
         RecipientResponse(attacker_starting_health, player_power, attacker_health, player_attack)
         print(f'{attacker_name} has {str(attacker_health)} health left!')
         
@@ -134,7 +134,7 @@ def Attack(given_player, current_given_player_health, given_attacker):
         attacker_attack = Get_Random(given_attacker.get('attack names'))
         player_health -= attacker_power
 
-        print(f'{attacker_name} attacks {player_name} with {attacker_attack}!')
+        print(f'{attacker_name} attacks {player_name} with {attacker_attack.capitalize()}!')
         RecipientResponse(player_starting_health, attacker_power, player_health, attacker_attack)
         print(f'{player_name} has {str(player_health)} health left!')
         
