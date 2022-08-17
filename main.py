@@ -42,6 +42,26 @@ def VerifyChoice(given_choice, given_choices_list):
 
     return(current_response)        
 
+def RecipientResponse(damage_delt, health_left, type_of_attack):
+    amount_of_damage_delt_responses = {
+        'small' : ['Hahaha!', '*yawn', 'Ehh... nice try.'],
+        'medium' : ['Gah!','Ow!','Jeez!'],
+        'large' : ['AHHH!!!!!!','F***!!!','WHY! OMG! WHY! OW! OW! OW!']    
+        }
+    type_of_attack_responses = {
+        'slash' : ['That was quite the slash,', 'Your sword lays an adequate blow,', 'You swing was heavy and courageous,'],
+        'stab' : ['That was quite the stab,','An impalement all the rest,','I see you have made a hole out of me,'],
+        'shove' : ['That was quite the shove,','Discombobulation never seems to get old,','Too good for a punch I see,'],
+        'kick' : ['That was quite the kick,', 'It appears your legs lacked attention,', 'I see you like to play footsie,'],
+        'punch' : ['That was quite the punch,','I guess I never heard the bell ring,','That one is quite the fan favorite,']      
+    }
+    amount_of_health_left_responses = {
+        'small' : ['I am holding on by a mere thread.','it appears that my days are numbered.','my presence as a matter of conceren, is to be no more.'],
+        'large' : ['I still seem to be holding on.', 'like an unrattled leaf, I remain present.', 'yet the sun still shines another day']
+    
+    }
+    pass
+
 def Attack(given_player, current_given_player_health, given_attacker):
     player_name = given_player.get('name')
     player_health = current_given_player_health
