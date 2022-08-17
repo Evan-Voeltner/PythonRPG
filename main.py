@@ -39,6 +39,10 @@ def Attack(given_player, given_attacker):
     attacker_power = given_attacker.get('attack power')
     attacker_attack = ''
     player_won = False
+    winner_stats = {
+        'name' : '',
+        'health' : 0
+    }
 
     print(f'A {attacker_name} has appeard!')
 
@@ -59,17 +63,24 @@ def Attack(given_player, given_attacker):
         print(f'{attacker_name} attacks {player_name} with {attacker_attack}!')
         print(f'{player_name} has {str(player_health)}')
 
-    if player_won:
-        return True
-    else:
-        return False
+    return(winner_stats)
 
 def RunGame(given_player, given_attackers):
     player_is_alive = True
+    player_name = given_player.get('name')
+    player_health = given_player.get('health')
 
     while player_is_alive:
         current_attacker = Get_Random(given_attackers)
-        Attack(given_player, current_attacker)
+        attack_result = Attack(given_player, current_attacker)
+        if attack_result.get('name') != player_name:
+            player_health = attack_result.get('health')
+            print(f'{player_name} beat {current_attacker}! {player_name} has {str(player_health)} health left.')
+        else:
+            attacker_name = attack_result.get("name")
+            attacker_health = str(attack_result.get("health"))
+            print(f'{player_name} lost their battle with {attacker_name}! {attacker_name} beat them out with {attacker_health} health left.')  
+            player_is_alive = False
 
 
 RunGame(hercules_stats, attackers)
