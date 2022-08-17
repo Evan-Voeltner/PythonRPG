@@ -43,39 +43,60 @@ def VerifyChoice(given_choice, given_choices_list):
     return(current_response)        
 
 def HowMuchDamage(starting_health, damage_delt):
-    pass
+    precentage_of_health = damage_delt/starting_health
+
+    if precentage_of_health <= .25:
+        return('small')
+    if precentage_of_health >= .26 and precentage_of_health <= .50:
+        return('medium')
+    if precentage_of_health >= .51:
+        return('large')
 
 def HowMuchHealth(starting_health, health_left):
-    pass
+    precentage_of_health = health_left/starting_health
+
+    if precentage_of_health <= .50:
+        return('small')
+    else:
+        return('large')
 
 def RecipientResponse(starting_health, damage_delt, health_left, type_of_attack):
     amount_of_damage_delt_responses = {
-        'small' : ['Hahaha!', '*yawn', 'Ehh... nice try.'],
-        'medium' : ['Gah!','Ow!','Jeez!'],
-        'large' : ['AHHH!!!!!!','F***!!!','WHY! OMG! WHY! OW! OW! OW!']    
+        'small' : ['Hahaha! ', '*yawn. ', 'Ehh... nice try. '],
+        'medium' : ['Gah! ','Ow! ','Jeez! '],
+        'large' : ['AHHH!!!!!! ','F***!!! ','WHY! OMG! WHY! OW! OW! OW! ']    
         }
     type_of_attack_responses = {
-        'slash' : ['That was quite the slash,', 'Your sword lays an adequate blow,', 'Your swing was heavy and courageous,'],
-        'stab' : ['That was quite the stab,','An impalement all the rest,','I see you have made a hole out of me,'],
-        'shove' : ['That was quite the shove,','Discombobulation never seems to get old,','Too good for a punch I see,'],
-        'kick' : ['That was quite the kick,', 'It appears your legs lacked attention,', 'I see you like to play footsie,'],
-        'punch' : ['That was quite the punch,','I guess I never heard the bell ring,','That one is quite the fan favorite,']      
+        'slash' : ['That was quite the slash, ', 'Your sword lays an adequate blow, ', 'Your swing was heavy and courageous, '],
+        'stab' : ['That was quite the stab, ','An impalement all the rest, ','I see you have made a hole out of me, '],
+        'shove' : ['That was quite the shove, ','Discombobulation never seems to get old, ','Too good for a punch I see, '],
+        'kick' : ['That was quite the kick, ', 'It appears your legs lacked attention, ', 'I see you like to play footsie, '],
+        'punch' : ['That was quite the punch, ','I guess I never heard the bell ring, ','That one is quite the fan favorite, ']      
     }
     amount_of_health_left_responses = {
         'small' : ['I am holding on by a mere thread.','it appears that my days are numbered.','my presence as a matter of conceren, is to be no more.'],
         'large' : ['I still seem to be holding on.', 'like an unrattled leaf, I remain present.', 'yet the sun still shines another day']
     }
 
-    and_or_but = ''
 
-    if damage_delt == 'small' and health_left == 'small':
-        and_or_but = 'and'
+    
+    amount_of_damage = HowMuchDamage(starting_health, damage_delt)
+    amount_of_health = HowMuchHealth(starting_health, health_left)
+
+    first_segment = Get_Random(amount_of_damage_delt_responses.get(amount_of_damage))
+    middle_segment = Get_Random(type_of_attack_responses.get(type_of_attack))
+    last_segment = Get_Random(amount_of_health_left_responses.get(amount_of_health))
+    
+    and_or_but = ''
+    
+    if amount_of_damage == 'small' and amount_of_health == 'small':
+        and_or_but = 'but '
+    if amount_of_damage == 'medium' or amount_of_damage == 'large' and amount_of_health == 'large':
+        and_or_but = 'but '
     else:
-        and_or_but = 'but'
-    if damage_delt == 'medium' or damage_delt == 'large' and health_left == 'large':
-        and_or_but = 'and'
-    else:
-        and_or_but = 'but'
+        and_or_but = 'and '
+
+    print(f'{first_segment}{middle_segment}{and_or_but}{last_segment}')
 
 def Attack(given_player, current_given_player_health, given_attacker):
     player_name = given_player.get('name')
